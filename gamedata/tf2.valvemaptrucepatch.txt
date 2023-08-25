@@ -1,0 +1,36 @@
+"Games"
+{
+	"tf"
+	{
+		"Signatures"
+		{
+			"CTFGameRules::RecalculateTruce"
+			{
+				"library"	"server"
+				"linux"		"@_ZN12CTFGameRules16RecalculateTruceEv"
+				"windows"	"\x55\x8B\xEC\x83\xEC\x2C\x53\x8B\xD9\xC6\x45\xFF\x00"
+			}
+		}
+		"MemPatches"
+		{
+			"CTFGameRules::RecalculateTruce::SkipIsValveMapCheck"
+			{
+				"windows"
+				{
+					"signature"		"CTFGameRules::RecalculateTruce"
+					"offset"		"E4h"           // CTFGameRules::RecalculateTruce(void)+E4 - Prep call to IsValveMap
+					"verify"		"\x8B\x03" 		// Moves pointer of "this" into eax
+					"patch"			"\xEB\x0E"		// Skip it! Jump to next check.
+				}
+
+				"linux"
+				{
+					"signature"		"CTFGameRules::RecalculateTruce"
+					"offset"		"F7h"                       // Ditto but different offset
+					"verify"		"\x0F\x85\x2A\x01\x00\x00" 	// Linux for some reason have a different method (Jump not zero). Change the jump
+					"patch"			"\x0F\x85\x63\x01\x00\x00"	// Skip it! Jump to next check.
+				}
+			}
+		}
+    }
+}
