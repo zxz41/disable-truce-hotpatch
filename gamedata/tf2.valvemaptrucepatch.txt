@@ -9,7 +9,7 @@
 				"library"	"server"
 				"linux"		"@_ZN12CTFGameRules16RecalculateTruceEv"
 				"windows"	"\x55\x8B\xEC\x83\xEC\x28\x53\x56\x8B\xF1\x32\xDB"
-				"windows64"	"\x40\x56\x41\x56\x41\x57\x48\x83\xEC\x60"
+				//"windows64"	"\x40\x56\x41\x56\x41\x57\x48\x83\xEC\x60"
 			}
 		}
 		"MemPatches"
@@ -25,13 +25,13 @@
 				}
 
 				// For some reason X64 using r14 as "this"
-				"windows64"
-				{
-					"signature"		"CTFGameRules::RecalculateTruce"
-					"offset"		"133h"          // CTFGameRules::RecalculateTruce(void)+133 - Prep call to IsValveMap
-					"verify"		"\x49\x8B\x06" 	// Moves pointer of "this" into rax
-					"patch"			"\xEB\x0E\x90"	// Skip it! Jump to next check. (Using NOOP for unreachable code)
-				}
+				//"windows64"
+				//{
+				//	"signature"		"CTFGameRules::RecalculateTruce"
+				//	"offset"		"133h"          // CTFGameRules::RecalculateTruce(void)+133 - Prep call to IsValveMap
+				//	"verify"		"\x49\x8B\x06" 	// Moves pointer of "this" into rax
+				//	"patch"			"\xEB\x0E\x90"	// Skip it! Jump to next check. (Using NOOP for unreachable code)
+				//}
 
 				"linux"
 				{
